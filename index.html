@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tahsin Fuad Hasan</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-  :root {
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
   --bg: #0a0a0b;
   --surface: #141416;
   --surface-2: #1c1c20;
@@ -17,12 +21,13 @@
   --accent-dim: #3a6bc2;
   --green: #4ade80;
   --warm: #f59e0b;
-  --font: 'Fraunces', -apple-system, sans-serif;
+  --font: 'Fraunces', Georgia, serif;
   --mono: 'JetBrains Mono', monospace;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --bg: #f5f5f0;
@@ -35,6 +40,7 @@
     --accent-dim: #1d4ed8;
   }
 }
+
 :root[data-theme="dark"] {
   --bg: #0a0a0b;
   --surface: #141416;
@@ -45,6 +51,7 @@
   --accent: #4f8ff7;
   --accent-dim: #3a6bc2;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
 body {
@@ -77,8 +84,8 @@ section { padding: 4rem 0; }
   font-family: var(--mono); font-size: 0.75rem; color: var(--accent);
   letter-spacing: 0.05em; margin-bottom: 1.5rem; font-weight: 500;
 }
-h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
-h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 1rem; }
+h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+h2 { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 1rem; }
 h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
 p { color: var(--text-muted); max-width: 60ch; }
 
@@ -103,7 +110,7 @@ p { color: var(--text-muted); max-width: 60ch; }
 /* PUBLICATION */
 .pub { padding: 1rem 0; border-bottom: 1px solid var(--border); }
 .pub:last-child { border-bottom: none; }
-.pub-title { font-weight: 500; color: var(--text); }
+.pub-title { font-weight: 600; color: var(--text); }
 .pub-venue { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); margin-top: 0.25rem; }
 .pub-authors { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
 .pub-links { margin-top: 0.4rem; }
@@ -121,18 +128,18 @@ p { color: var(--text-muted); max-width: 60ch; }
   margin-bottom: 0.5rem;
 }
 .project-status.wip { color: var(--warm); }
-.project p { font-size: 0.9rem; margin-top: 0.5rem; }
+.project p { font-size: 0.95rem; margin-top: 0.5rem; }
 
 /* EXPERIENCE */
 .exp { padding: 1.5rem 0; border-left: 2px solid var(--border); padding-left: 1.5rem; margin-left: 0.5rem; }
 .exp-date { font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); }
 .exp-role { font-weight: 600; margin-top: 0.25rem; }
 .exp-org { color: var(--text-muted); font-size: 0.9rem; }
-.exp p { font-size: 0.9rem; margin-top: 0.5rem; }
+.exp p { font-size: 0.95rem; margin-top: 0.5rem; }
 
 /* SKILLS GRID */
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
-.skill-group h3 { font-size: 0.9rem; color: var(--accent); margin-bottom: 0.75rem; }
+.skill-group h3 { font-size: 0.95rem; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--mono); }
 
 /* CREATIVE GALLERY */
 .gallery-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; }
@@ -159,7 +166,7 @@ footer { padding: 3rem 0; border-top: 1px solid var(--border); text-align: cente
 footer p { margin: 0 auto; font-size: 0.85rem; }
 
 @media (max-width: 640px) {
-  h1 { font-size: 2rem; }
+  h1 { font-size: 2.2rem; }
   nav ul { gap: 0.75rem; }
   .container { padding: 0 1.25rem; }
   .hero { padding: 3rem 0 2rem; }
