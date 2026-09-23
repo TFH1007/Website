@@ -57,13 +57,23 @@ body::before {
 /* NAV */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: var(--bg); padding: 1.25rem 3rem;
-  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 1.5rem 0;
+  display: flex; justify-content: center;
+  pointer-events: none;
 }
-nav .name { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-weight: 600; font-size: 1.1rem; color: var(--text); letter-spacing: -0.01em; }
-nav ul { list-style: none; display: flex; gap: 2rem; }
-nav ul a { font-size: 0.85rem; color: var(--text-dim); font-weight: 400; }
-nav ul a:hover { color: var(--text); }
+nav ul {
+  pointer-events: auto;
+  list-style: none; display: flex; gap: 1.9rem;
+  padding: 0.7rem 1.9rem; border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled ul { box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.45); }
+nav ul a { font-size: 0.88rem; color: var(--text-dim); font-weight: 400; white-space: nowrap; }
+nav ul a:hover, nav ul a.active { color: var(--text); }
 
 .wrap { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
 section { padding: 4rem 0; }
@@ -72,11 +82,41 @@ section { padding: 4rem 0; }
 .hero { padding: 5rem 0 3rem; max-width: 600px; }
 .hero h1 { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-size: 4.25rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.02; margin-bottom: 1.5rem; }
 .hero .intro { font-size: 1.05rem; color: var(--text); line-height: 1.7; margin-bottom: 0.5rem; }
+.hero .intro .role { font-weight: 600; color: var(--accent); }
 .hero .intro em { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-style: italic; font-weight: 400; font-size: 1.12em; color: var(--accent); }
+/* Typing name + staggered intro (only when JS is running) */
+.hero h1 .tc { opacity: 0; }
+.hero h1 .tc.on { opacity: 1; }
+.caret { display: inline-block; width: 0; height: 0.9em; position: relative; vertical-align: -0.08em; transition: opacity 0.5s; }
+.caret::after { content: ""; position: absolute; top: 0; bottom: 0; left: 4px; width: 3px; border-radius: 2px; background: var(--accent); }
+.caret.idle::after { animation: blink 1s steps(1) infinite; }
+.caret.done { opacity: 0; }
+@keyframes blink { 50% { opacity: 0; } }
+.js .hero > :not(h1) { opacity: 0; transform: translateY(8px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.js .hero.typed > :not(h1) { opacity: 1; transform: none; }
+.js .hero.typed > .sub { transition-delay: 0.12s; }
+.js .hero.typed > .hero-links { transition-delay: 0.24s; }
 .hero .sub { font-size: 0.95rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1.5rem; }
-.hero-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.hero-links { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
 .hero-links a { font-size: 0.85rem; color: var(--link); border-bottom: 1px solid var(--border); padding-bottom: 2px; }
 .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
+.hero-links a.btn-resume { color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 0.3rem 0.95rem; font-weight: 500; transition: background 0.2s, color 0.2s; }
+.hero-links a.btn-resume:hover { background: var(--accent); color: var(--bg); }
+
+/* Tilted resume "paper" beside the hero */
+.hero-row { display: flex; justify-content: space-between; align-items: center; gap: 3rem; }
+.resume-card { flex: 0 0 240px; margin-right: 2rem; text-align: center; color: var(--text-dim); }
+.resume-card img {
+  display: block; width: 100%; border-radius: 4px; background: #fff;
+  transform: rotate(6deg);
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s;
+}
+.resume-card span { display: inline-block; margin-top: 1.4rem; font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-style: italic; font-size: 1.05rem; transform: rotate(6deg); transition: color 0.2s; }
+.resume-card:hover { color: var(--accent); }
+.resume-card:hover img { transform: rotate(1.5deg) translateY(-6px) scale(1.03); box-shadow: 0 34px 60px -22px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--accent); }
+.js .resume-card { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease 0.35s, transform 0.8s ease 0.35s, color 0.2s; }
+.js .hero-row:has(.hero.typed) .resume-card { opacity: 1; transform: none; }
 
 /* SECTION HEADERS */
 .wrap { counter-reset: sec; }
@@ -98,6 +138,11 @@ section { padding: 4rem 0; }
 .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.3s, transform 0.35s ease, box-shadow 0.35s ease; }
 .project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.45); }
 .project-card:hover h3 { color: var(--accent); }
+.project-card { position: relative; }
+.card-link { color: inherit; }
+.card-link:hover { color: inherit; }
+.card-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.proj-links { position: relative; z-index: 2; }
 .project-img {
   width: 100%; aspect-ratio: 16/10; background: #222; display: flex;
   align-items: center; justify-content: center; color: var(--text-dim);
@@ -172,9 +217,13 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
   .project-card:hover, .mini-card:hover, .project-card:hover .project-img img { transform: none; }
 }
 
+@media (max-width: 900px) {
+  .resume-card { display: none; }
+}
+
 @media (max-width: 768px) {
   .wrap { padding: 0 1.5rem; }
-  nav { padding: 1rem 1.5rem; }
+  nav { padding: 0.75rem 1rem 0; }
   .hero h1 { font-size: 2.75rem; }
   .project-grid, .mini-projects { grid-template-columns: 1fr; }
   .exp-item { grid-template-columns: 1fr; gap: 0.25rem; position: relative; border-left: 1px solid var(--border); padding: 0 0 2rem 1.5rem; }
@@ -183,14 +232,13 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
   .section-title { font-size: 1.6rem; }
   .me-section { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
-  nav ul { gap: 1rem; }
+  nav ul { gap: 1.1rem; max-width: 100%; padding: 0.6rem 1.2rem; overflow-x: auto; scrollbar-width: none; }
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="name">Tahsin Fuad Hasan</div>
   <ul>
     <li><a href="#research">Research</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -204,58 +252,65 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 <div class="wrap">
 
 <!-- HERO -->
+<div class="hero-row">
 <section class="hero">
   <h1>Tahsin Fuad Hasan</h1>
-  <p class="intro">ML Engineer with an background in CS and Mechatronics Engineering building <em>systems that work outside the lab</em>. Based in New York.</p>
-  <p class="sub">Based in New York. MS in Computer Science from University at Buffalo, dual engineering degrees from IIUM Malaysia. I design models from first principles, deploy them on hardware you can hold in your hand, and occasionally design posters about it.</p>
+  <p class="intro"><strong class="role">ML and Data Science Engineer.</strong> Fundamentals in Mechatronics Engineering, then a pivot into Computer Science. The through-line in using data to make systems work better, sometimes through an innovative breakthrough, usually through the kind of incremental fix that nobody notices until it scales. </p>
+  <p class="sub">Based in New York City, NY. </p>
   <div class="hero-links">
     <a href="mailto:tahsinfu@buffalo.edu">Email</a>
     <a href="https://www.linkedin.com/in/tahsinfuad/">LinkedIn</a>
     <a href="https://github.com/TFH1007">GitHub</a>
     <a href="https://scholar.google.com/citations?user=ciSFzloAAAAJ&hl=en">Scholar</a>
+    <a class="btn-resume" href="Images/TFH_ML_Resume.pdf" target="_blank" rel="noopener">Resume ↗</a>
   </div>
 </section>
+<a class="resume-card" href="Images/TFH_ML_Resume.pdf" target="_blank" rel="noopener" aria-label="Open resume (PDF)">
+  <img src="Images/resume-thumb.jpg" alt="First page of Tahsin's resume">
+  <span>resume.pdf</span>
+</a>
+</div>
 
 <!-- RESEARCH -->
 <section id="research">
   <div class="section-title">Research</div>
   <div class="project-grid">
 
-    <a href="https://arxiv.org/pdf/2512.18207" class="project-card" style="text-decoration:none; color:inherit;">
+    <div class="project-card">
       <div class="project-img"><img src="Images/Fedwiloc2.png" alt="FedWiLoc"></div>
       <div class="project-body">
-        <h3>FedWiLoc: Privacy-Preserving WiFi Localization</h3>
+        <h3><a href="https://arxiv.org/pdf/2512.18207" class="card-link">FedWiLoc: Privacy-Preserving WiFi Localization</a></h3>
         <p>Embedding-based retrieval model with federated training. ResNet34 encoder, geometric loss from first principles, deployed to Raspberry Pi. 61.9% improvement over baselines.</p>
         <div class="proj-links"><a href="https://arxiv.org/pdf/2512.18207">Paper</a><a href="https://github.com/WIRES-UB/PriWiLoc-Open">Code</a></div>
       </div>
-    </a>
+    </div>
 
-    <a href="https://arxiv.org/abs/2602.16762" class="project-card" style="text-decoration:none; color:inherit;">
+    <div class="project-card">
       <div class="project-img"><img src="Images/attention.png" alt="Attention"></div>
       <div class="project-body">
-        <h3>Attending to Routers for Indoor Localization</h3>
+        <h3><a href="https://arxiv.org/abs/2602.16762" class="card-link">Attending to Routers for Indoor Localization</a></h3>
         <p>Set-invariant attention mechanism for adaptive sensor weighting. Reduced 99th-percentile error by 39.4% and improved hard-location performance by 45.5%.</p>
         <div class="proj-links"><a href="https://arxiv.org/abs/2602.16762">Paper</a></div>
       </div>
-    </a>
+    </div>
 
-    <a href="https://telkomnika.uad.ac.id/index.php/TELKOMNIKA/article/view/25096" class="project-card" style="text-decoration:none; color:inherit;">
-      <div class="project-img">Add vehicle detection screenshot here</div>
+    <div class="project-card">
+      <div class="project-img"><img src="Images/vehicle.png" alt="Vehicle"></div>
       <div class="project-body">
-        <h3>Real-time Vehicle Counting</h3>
+        <h3><a href="https://telkomnika.uad.ac.id/index.php/TELKOMNIKA/article/view/25096" class="card-link">Real-time Vehicle Counting</a></h3>
         <p>YOLOv8n + DeepSORT for real-time vehicle detection and tracking deployed on resource-constrained edge devices. Python and C++.</p>
         <div class="proj-links"><a href="https://telkomnika.uad.ac.id/index.php/TELKOMNIKA/article/view/25096">Paper</a></div>
       </div>
-    </a>
+    </div>
 
-    <a href="https://www.researchgate.net/publication/387545436" class="project-card" style="text-decoration:none; color:inherit;">
+    <div class="project-card">
       <div class="project-img"><img src="Images/water.png" alt="Water"></div>
       <div class="project-body">
-        <h3>Water Quality Monitoring with ML and IoT</h3>
+        <h3><a href="https://www.researchgate.net/publication/387545436" class="card-link">Water Quality Monitoring with ML and IoT</a></h3>
         <p>5 sensors wired to Arduino, MQTT streaming to Node-RED dashboard. Cleaned 3K+ entries, benchmarked 6 ML models. Gradient Boosting achieved 99.3%.</p>
         <div class="proj-links"><a href="https://www.researchgate.net/publication/387545436">Paper</a></div>
       </div>
-    </a>
+    </div>
 
   </div>
 </section>
@@ -403,11 +458,62 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 <footer><p>Tahsin Fuad Hasan · tahsinfu@buffalo.edu · New York</p></footer>
 
 <script>
+document.documentElement.classList.add('js');
+
+// Type out the hero name, then ease in the rest of the intro
+(function () {
+  const h = document.querySelector('.hero h1');
+  const hero = h.parentElement;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { hero.classList.add('typed'); return; }
+  const text = h.textContent;
+  h.setAttribute('aria-label', text);
+  h.textContent = '';
+  const chars = [...text].map(c => {
+    const s = document.createElement('span');
+    s.className = 'tc'; s.textContent = c; s.setAttribute('aria-hidden', 'true');
+    h.appendChild(s);
+    return s;
+  });
+  const caret = document.createElement('span');
+  caret.className = 'caret'; caret.setAttribute('aria-hidden', 'true');
+  h.prepend(caret);
+  let i = 0;
+  function step() {
+    chars[i].classList.add('on');
+    chars[i].after(caret);
+    if (++i < chars.length) return setTimeout(step, 55 + Math.random() * 60);
+    caret.classList.add('idle');
+    setTimeout(() => hero.classList.add('typed'), 150);
+    setTimeout(() => caret.classList.add('done'), 2600);
+  }
+  setTimeout(step, 350);
+})();
+
+// Show a hairline under the translucent nav once the page scrolls
+(function () {
+  const nav = document.querySelector('nav');
+  const update = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+// Highlight the pill link for the section in view
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  const links = [...document.querySelectorAll('nav ul a')];
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  links.forEach(a => { const t = document.querySelector(a.getAttribute('href')); if (t) io.observe(t); });
+})();
+
 // Fade sections in as they scroll into view
 (function () {
   if (!('IntersectionObserver' in window)) return;
-  document.documentElement.classList.add('js');
-  const els = document.querySelectorAll('.wrap > section');
+  const els = document.querySelectorAll('.wrap > section:not(.hero)');
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
