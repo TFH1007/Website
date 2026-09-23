@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tahsin Fuad Hasan</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,100;1,9..144,400..600,100&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #0e0e0e;
@@ -12,9 +12,12 @@
   --border: #2a2a2a;
   --text: #ececec;
   --text-dim: #888;
-  --accent: #c8c8c8;
-  --link: #a0a0a0;
+  --accent: #afbf7e;
+  --accent-soft: rgba(175, 191, 126, 0.12);
+  --link: #8cc6ec;
+  --grain-opacity: 0.06;
   --font: 'DM Sans', -apple-system, sans-serif;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -26,19 +29,30 @@
     --border: #e2e2e0;
     --text: #1a1a1a;
     --text-dim: #777;
-    --accent: #333;
-    --link: #555;
+    --accent: #5f6f2c;
+    --accent-soft: rgba(95, 111, 44, 0.1);
+    --link: #2b6c9c;
+    --grain-opacity: 0.045;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e0e0e; --surface: #1a1a1a; --border: #2a2a2a;
-  --text: #ececec; --text-dim: #888; --accent: #c8c8c8; --link: #a0a0a0;
+  --text: #ececec; --text-dim: #888; --accent: #afbf7e; --accent-soft: rgba(175, 191, 126, 0.12);
+  --link: #8cc6ec; --grain-opacity: 0.06;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-a { color: var(--link); text-decoration: none; transition: color 0.2s; }
+a { color: var(--link); text-decoration: none; transition: color 0.2s, border-color 0.2s; }
 a:hover { color: var(--text); }
+::selection { background: var(--accent); color: var(--bg); }
+
+/* GRAIN */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 1000; pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
 /* NAV */
 nav {
@@ -46,7 +60,7 @@ nav {
   background: var(--bg); padding: 1.25rem 3rem;
   display: flex; justify-content: space-between; align-items: center;
 }
-nav .name { font-weight: 600; font-size: 0.95rem; color: var(--text); letter-spacing: -0.01em; }
+nav .name { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-weight: 600; font-size: 1.1rem; color: var(--text); letter-spacing: -0.01em; }
 nav ul { list-style: none; display: flex; gap: 2rem; }
 nav ul a { font-size: 0.85rem; color: var(--text-dim); font-weight: 400; }
 nav ul a:hover { color: var(--text); }
@@ -56,42 +70,67 @@ section { padding: 4rem 0; }
 
 /* HERO */
 .hero { padding: 5rem 0 3rem; max-width: 600px; }
-.hero h1 { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 1.25rem; }
+.hero h1 { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-size: 4.25rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.02; margin-bottom: 1.5rem; }
 .hero .intro { font-size: 1.05rem; color: var(--text); line-height: 1.7; margin-bottom: 0.5rem; }
+.hero .intro em { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-style: italic; font-weight: 400; font-size: 1.12em; color: var(--accent); }
 .hero .sub { font-size: 0.95rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1.5rem; }
 .hero-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-.hero-links a { font-size: 0.8rem; color: var(--text-dim); border-bottom: 1px solid var(--border); padding-bottom: 2px; }
-.hero-links a:hover { color: var(--text); border-color: var(--text); }
+.hero-links a { font-size: 0.85rem; color: var(--link); border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+.hero-links a:hover { color: var(--accent); border-color: var(--accent); }
 
 /* SECTION HEADERS */
-.section-title { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2rem; }
+.wrap { counter-reset: sec; }
+.section-title {
+  counter-increment: sec;
+  font-family: var(--serif); font-variation-settings: 'SOFT' 100;
+  font-size: 2rem; font-weight: 500; letter-spacing: -0.015em; line-height: 1.1;
+  color: var(--text); margin-bottom: 2rem;
+  display: flex; align-items: baseline; gap: 0.9rem;
+}
+.section-title::before {
+  content: counter(sec, decimal-leading-zero) " —";
+  font-family: var(--font); font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.08em; color: var(--accent);
+}
 
 /* PROJECT GRID */
 .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.3s; }
-.project-card:hover { border-color: #444; }
+.project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.3s, transform 0.35s ease, box-shadow 0.35s ease; }
+.project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.45); }
+.project-card:hover h3 { color: var(--accent); }
 .project-img {
   width: 100%; aspect-ratio: 16/10; background: #222; display: flex;
   align-items: center; justify-content: center; color: var(--text-dim);
   font-size: 0.85rem; border-bottom: 1px solid var(--border);
 }
-.project-img img { width: 100%; height: 100%; object-fit: cover; }
+.project-img { overflow: hidden; }
+.project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.project-card:hover .project-img img { transform: scale(1.03); }
 .project-body { padding: 1.25rem; }
-.project-body h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+.project-body h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; letter-spacing: -0.01em; transition: color 0.3s; }
 .project-body p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 0.75rem; }
 .project-body .proj-links a { font-size: 0.8rem; margin-right: 1rem; color: var(--link); border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-.project-body .proj-links a:hover { color: var(--text); }
+.project-body .proj-links a:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ADDITIONAL PROJECTS */
 .mini-projects { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.mini-card { padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.mini-card { padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.3s, transform 0.35s ease; }
+.mini-card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .mini-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
 .mini-card p { font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; }
 
 /* EXPERIENCE */
-.exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.exp-list { display: flex; flex-direction: column; }
 .exp-item { display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; }
 .exp-date { font-size: 0.8rem; color: var(--text-dim); padding-top: 0.15rem; }
+.exp-content { position: relative; border-left: 1px solid var(--border); padding: 0 0 2rem 1.75rem; }
+.exp-item:last-child .exp-content { padding-bottom: 0; }
+.exp-content::before {
+  content: ""; position: absolute; left: -5px; top: 0.4rem;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--accent);
+}
+.exp-item.current .exp-content::before { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
 .exp-content h3 { font-size: 0.95rem; font-weight: 600; }
 .exp-content .exp-org { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.3rem; }
 .exp-content p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
@@ -99,19 +138,21 @@ section { padding: 4rem 0; }
 /* SKILLS */
 .skills-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 .skills-label { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
-.skill-tag { font-size: 0.75rem; padding: 0.3rem 0.7rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-dim); }
+.skill-tag { font-size: 0.75rem; padding: 0.3rem 0.7rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-dim); transition: all 0.2s; }
+.skill-tag:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--text); }
 
 /* ME */
 .me-section { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; align-items: start; }
 .me-photo { width: 100%; border-radius: 12px; background: var(--surface); aspect-ratio: 3/4; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 0.85rem; overflow: hidden; }
 .me-photo img { width: 100%; height: 100%; object-fit: cover; }
-.me-text h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+.me-text h2 { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-size: 1.9rem; font-weight: 500; letter-spacing: -0.015em; margin-bottom: 1rem; }
 .me-text p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1rem; }
 
 /* GALLERY */
 .gallery-tabs { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
 .g-tab { font-size: 0.8rem; padding: 0.35rem 0.9rem; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: transparent; color: var(--text-dim); transition: all 0.2s; }
-.g-tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+.g-tab:hover { border-color: var(--accent); color: var(--text); }
+.g-tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .g-item { aspect-ratio: 4/5; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 0.8rem; text-align: center; padding: 1rem; }
 .g-item img { width: 100%; height: 100%; object-fit: cover; }
@@ -120,12 +161,26 @@ section { padding: 4rem 0; }
 footer { padding: 3rem 0; text-align: center; }
 footer p { font-size: 0.8rem; color: var(--text-dim); }
 
+/* SCROLL REVEAL (only when JS is running) */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+  .js .reveal { opacity: 1; transform: none; }
+  .project-card:hover, .mini-card:hover, .project-card:hover .project-img img { transform: none; }
+}
+
 @media (max-width: 768px) {
   .wrap { padding: 0 1.5rem; }
   nav { padding: 1rem 1.5rem; }
-  .hero h1 { font-size: 2rem; }
+  .hero h1 { font-size: 2.75rem; }
   .project-grid, .mini-projects { grid-template-columns: 1fr; }
-  .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.25rem; position: relative; border-left: 1px solid var(--border); padding: 0 0 2rem 1.5rem; }
+  .exp-item:last-child { padding-bottom: 0; }
+  .exp-content { position: static; border-left: none; padding: 0; }
+  .section-title { font-size: 1.6rem; }
   .me-section { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   nav ul { gap: 1rem; }
@@ -140,6 +195,7 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
     <li><a href="#research">Research</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#me">Me</a></li>
     <li><a href="#creative">Art</a></li>
   </ul>
@@ -150,7 +206,7 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 <!-- HERO -->
 <section class="hero">
   <h1>Tahsin Fuad Hasan</h1>
-  <p class="intro">ML Engineer with an background in CS and Mechatronics Engineering building systems that work outside the lab. Based in New York.</p>
+  <p class="intro">ML Engineer with an background in CS and Mechatronics Engineering building <em>systems that work outside the lab</em>. Based in New York.</p>
   <p class="sub">Based in New York. MS in Computer Science from University at Buffalo, dual engineering degrees from IIUM Malaysia. I design models from first principles, deploy them on hardware you can hold in your hand, and occasionally design posters about it.</p>
   <div class="hero-links">
     <a href="mailto:tahsinfu@buffalo.edu">Email</a>
@@ -239,7 +295,7 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 <section id="experience">
   <div class="section-title">Experience</div>
   <div class="exp-list">
-    <div class="exp-item">
+    <div class="exp-item current">
       <div class="exp-date">Jan 2024 — Present</div>
       <div class="exp-content">
         <h3>Research Assistant</h3>
@@ -247,7 +303,7 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
         <p>Built end-to-end indoor localization system. Data pipelines, model design, cloud training, edge deployment. Two first-author publications. Open-sourced codebase.</p>
       </div>
     </div>
-    <div class="exp-item">
+    <div class="exp-item current">
       <div class="exp-date">Jan 2024 — Present</div>
       <div class="exp-content">
         <h3>Teaching Assistant</h3>
@@ -333,9 +389,9 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
     <div class="g-item" data-cat="posters"><img src="Images/pohelaboishakh.jpg" alt="Poster"></div>
     <div class="g-item" data-cat="posters"><img src="Images/Poster2.jpg" alt="Poster 2"></div>
     <div class="g-item" data-cat="posters"><img src="Images/Poster3.jpg" alt="Poster 3"></div>
-    <div class="g-item" data-cat="photographs"><img src="Images/img1.jpg" alt="Photo 1"></div>
-    <div class="g-item" data-cat="photographs"><img src="Images/img2.jpg" alt="Photo 2"></div>
-    <div class="g-item" data-cat="photographs"><img src="Images/img3.jpg" alt="Photo 3"></div>
+    <div class="g-item" data-cat="photos"><img src="Images/img1.jpg" alt="Photo 1"></div>
+    <div class="g-item" data-cat="photos"><img src="Images/img2.jpg" alt="Photo 2"></div>
+    <div class="g-item" data-cat="photos"><img src="Images/img3.jpg" alt="Photo 3"></div>
     <div class="g-item" data-cat="paintings"><img src="Images/art1.jpg" alt="Art 1"></div>
     <div class="g-item" data-cat="paintings"><img src="Images/art2.jpg" alt="Art 2"></div>
     <div class="g-item" data-cat="paintings"><img src="Images/art3.jpg" alt="Art 3"></div>
@@ -347,6 +403,19 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 <footer><p>Tahsin Fuad Hasan · tahsinfu@buffalo.edu · New York</p></footer>
 
 <script>
+// Fade sections in as they scroll into view
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js');
+  const els = document.querySelectorAll('.wrap > section');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => { el.classList.add('reveal'); io.observe(el); });
+})();
+
 function filterG(cat, btn) {
   document.querySelectorAll('.g-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
