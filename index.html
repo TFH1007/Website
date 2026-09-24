@@ -194,6 +194,7 @@ section { padding: 4rem 0; }
 .me-text p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1rem; }
 
 /* GALLERY */
+.section-sub { font-size: 0.95rem; color: var(--text-dim); margin: -1.25rem 0 1.5rem; }
 .gallery-tabs { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
 .g-tab { font-size: 0.8rem; padding: 0.35rem 0.9rem; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: transparent; color: var(--text-dim); transition: all 0.2s; }
 .g-tab:hover { border-color: var(--accent); color: var(--text); }
@@ -353,20 +354,20 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 <section id="experience">
   <div class="section-title">Experience</div>
   <div class="exp-list">
-    <div class="exp-item current">
-      <div class="exp-date">Jan 2024 — Present</div>
+    <div class="exp-item">
+      <div class="exp-date">Jan 2024 — June 2026</div>
       <div class="exp-content">
         <h3>Research Assistant</h3>
         <div class="exp-org">WIRES Lab, University at Buffalo</div>
         <p>Built end-to-end indoor localization system. Data pipelines, model design, cloud training, edge deployment. Two first-author publications. Open-sourced codebase.</p>
       </div>
     </div>
-    <div class="exp-item current">
-      <div class="exp-date">Jan 2024 — Present</div>
+    <div class="exp-item">
+      <div class="exp-date">Jan 2024 — May 2026</div>
       <div class="exp-content">
         <h3>Teaching Assistant</h3>
         <div class="exp-org">University at Buffalo</div>
-        <p>SQL, relational databases, data structures, algorithms. 3 semesters, 200+ students.</p>
+        <p>Taught and organized courses on SQL, relational databases, data structures and algorithms. 3 semesters, 200+ students.</p>
       </div>
     </div>
     <div class="exp-item">
@@ -438,6 +439,7 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 <!-- CREATIVE -->
 <section id="creative">
   <div class="section-title">Creative Work</div>
+  <p class="section-sub">A snippet of some of my hobbies.</p>
   <div class="gallery-tabs">
     <button class="g-tab active" onclick="filterG('all',this)">All</button>
     <button class="g-tab" onclick="filterG('posters',this)">Posters</button>
